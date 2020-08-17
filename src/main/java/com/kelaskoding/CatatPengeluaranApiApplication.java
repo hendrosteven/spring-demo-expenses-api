@@ -15,16 +15,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
 @Controller
+@RequestMapping("/ATriggerVerify.txt")
 public class CatatPengeluaranApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CatatPengeluaranApiApplication.class, args);
 	}
 
-	@GetMapping(value = "/ATriggerVerify.txt")
+	@GetMapping
 	public void test(HttpServletResponse response) throws IOException {
 
 	    response.addHeader("content-type", "text/plain; charset=utf-8");
