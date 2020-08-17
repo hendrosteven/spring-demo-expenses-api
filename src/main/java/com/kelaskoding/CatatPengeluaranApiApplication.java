@@ -1,8 +1,6 @@
 package com.kelaskoding;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,8 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -34,8 +33,8 @@ public class CatatPengeluaranApiApplication {
 
 	    PrintWriter out = response.getWriter();
 	   
-	    File file = ResourceUtils.getFile("classpath:ATriggerVerify.txt");
-        InputStream in = new FileInputStream(file);
+	    Resource resource = new ClassPathResource("classpath:ATriggerVerify.txt");
+        InputStream in = resource.getInputStream();
 	    
 	    InputStreamReader isReader = new InputStreamReader(in);
 	    BufferedReader reader = new BufferedReader(isReader);
