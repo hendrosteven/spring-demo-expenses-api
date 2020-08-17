@@ -24,7 +24,7 @@ public class CatatPengeluaranApiApplication {
 		ResponseData response = new ResponseData();
 		try {
 			response.setStatus(true);
-			response.getMessages().add("Welcome to Expenses API");
+			response.getMessages().add("Welcome to Expenses API v.1.0");
 			response.setPayload(null);
 			return ResponseEntity.ok(response);
 		} catch (Exception ex) {
