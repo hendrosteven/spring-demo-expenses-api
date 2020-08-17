@@ -1,36 +1,48 @@
 package com.kelaskoding;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.kelaskoding.params.ResponseData;
 
 @SpringBootApplication
-@RestController
-@RequestMapping("/")
+@Controller
 public class CatatPengeluaranApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CatatPengeluaranApiApplication.class, args);
 	}
 
-	@GetMapping
-	public ResponseEntity<?> home() {
-		ResponseData response = new ResponseData();
-		try {
-			response.setStatus(true);
-			response.getMessages().add("Welcome to Expenses API v.1.0");
-			response.setPayload(null);
-			return ResponseEntity.ok(response);
-		} catch (Exception ex) {
-			response.setStatus(false);
-			response.getMessages().add("Upps!! : "+ex.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-		}
+	@GetMapping(value = "/ATriggerVerify.txt")
+	public void test(HttpServletResponse response) throws IOException {
+
+	    response.addHeader("content-type", "text/plain; charset=utf-8");
+	    response.setStatus(200);
+
+	    PrintWriter out = response.getWriter();
+	   
+	    File file = ResourceUtils.getFile("classpath:ATriggerVerify.txt");
+        InputStream in = new FileInputStream(file);
+	    
+	    InputStreamReader isReader = new InputStreamReader(in);
+	    BufferedReader reader = new BufferedReader(isReader);
+	      StringBuffer sb = new StringBuffer();
+	      String str;
+	      while((str = reader.readLine())!= null){
+	         sb.append(str);
+	      }
+	    
+	    out.println(sb.toString());
 	}
 }
